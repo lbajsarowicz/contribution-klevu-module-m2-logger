@@ -45,7 +45,8 @@ class ModuleLoggerTest extends TestCase
 
     public function testModuleIsEnabledInTheRealEnvironment(): void
     {
-        $dirList = $this->objectManager->create(DirectoryList::class, ['root' => BP]);
+        $root = $this->objectManager->get(DirectoryList::class)->getRoot();
+        $dirList = $this->objectManager->create(DirectoryList::class, ['root' => $root]);
         $configReader = $this->objectManager->create(DeploymentConfigReader::class, ['dirList' => $dirList]);
         $deploymentConfig = $this->objectManager->create(DeploymentConfig::class, ['reader' => $configReader]);
         $moduleList = $this->objectManager->create(ModuleList::class, ['config' => $deploymentConfig]);
